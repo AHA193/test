@@ -4,17 +4,27 @@ import { useState } from 'react';
 
 function App() {
 
- // Using this syntax above to declare the color state
 
-  const [color, setColor] = useState('Red')    // où setColor est un "Setter Function"
 
-  const changeColor = ()=>{
-    setColor('Blue') 
-  }
+const [car, setCar] = useState({ 
+brand : "Ferrari",
+model: "Roma",
+year: "2023",
+color: "red"
+});
+
+const changeColor = ()=> {
+  setCar((prev)=>{   
+    return {...prev, color:"blue"} 
+  })
+}
+
   return (
   <>
-  <h1>My Favourite color is {color}!</h1>
-    <button onClick={changeColor}>Blue</button>
+<h1>My {car.brand}</h1>
+<h2>It is a {car.color} {car.model} from {car.year}</h2>
+<button onClick={changeColor}>Blue</button>
+
   </>
   );
 }

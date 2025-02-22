@@ -1,27 +1,24 @@
-import React from 'react';
-import './App.css';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react'
+import './App.css'
+
+
+// ex 4 UseEffect
+// example so here we will display one counter that will display how many times component gets loaded
 
 function App() {
-// ex 3 _updating a state based on previous state
+  const [count, setCount] = useState(0)
+  const [name, setname] = useState("Mr GreatStack")
 
-const [count, setCount] = useState(0); 
+  useEffect(()=>{
+    setTimeout(()=>{
+      setCount(count => count+1);  
+    },2000)
+  },[count,name]) 
 
-
-const increaseCount = ()=>{
-setCount(count=>count + 1) 
-setCount(count=>count + 1)   
-setCount(count=>count + 1)  
-setCount(count=>count + 1)    
-            
-}
-
-return (
-  <>
-<h1>Count: {count}</h1>
-<button onClick={increaseCount}>Increase by 4</button>  
-
-  </>
+  return (
+    <>
+      <h1>I've rendered {count} times {name} !</h1>
+    </>
   );
 }
 

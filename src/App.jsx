@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './App.css'
 
 
-// ex 4 UseEffect
-// example so here we will display one counter that will display how many times component gets loaded
+// 3  UseRef
+// ex2  now we will learn about the another use of useRef hook that is accessing the Dom element 
+// (selon 2 comportements l.13 selection de l'objet au hint sur le bouton & l.14 + avec un changement d'état)
+// hint 1) <input type="text" >
+// hint 2) <input type="text" style="background: blue;">
 
-function App() {
-  const [count, setCount] = useState(0)
-  const [name, setname] = useState("Mr GreatStack")
+function App() {  
+  const inputElem = useRef()
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      setCount(count => count+1);  
-    },2000)
-  },[count,name]) 
+const btnClicked = ()=>{
+  console.log(inputElem.current);
+  inputElem.current.style.background = "blue";
+}
 
-  return (
-    <>
-      <h1>I've rendered {count} times {name} !</h1>
+  return (    
+    <>  
+    <input type="text" ref={inputElem}/>  
+    <button onClick={btnClicked}>Click Here</button>
     </>
   );
 }

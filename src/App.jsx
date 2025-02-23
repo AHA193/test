@@ -1,27 +1,36 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useMemo } from 'react'
 import './App.css'
 
 
-// 3  UseRef
-// ex2  now we will learn about the another use of useRef hook that is accessing the Dom element 
-// (selon 2 comportements l.13 selection de l'objet au hint sur le bouton & l.14 + avec un changement d'état)
-// hint 1) <input type="text" >
-// hint 2) <input type="text" style="background: blue;">
+// 4  UseMemo hook
+// why we need use memo ?
 
 function App() {  
-  const inputElem = useRef()
+  const [number, setNumber] = useState(0)
+  const [counter, setCounter] = useState(0)
 
-const btnClicked = ()=>{
-  console.log(inputElem.current);
-  inputElem.current.style.background = "blue";
+
+function cubeNum(num){
+  console.log('Calculation done!');
+  return Math.pow(num, 3)  
 }
+
+const result = useMemo(()=>cubeNum(number), [number]); // here we are simply calling this Cube number function so let 
+// me remove it (cubeNum(number)) and here we will add useMemo
+//CI DESSUS OU depuis: const result = useMemo(()=>{return cubeNum(number)}, [number]);
+
+
+
+
 
   return (    
-    <>  
-    <input type="text" ref={inputElem}/>  
-    <button onClick={btnClicked}>Click Here</button>
-    </>
-  );
+<>
+<input type="number" value={number} onChange={(e)=>{setNumber(e.target.value)}}/>
+<h1>Cube of the number: {result}</h1>
+<button onClick={()=>{setCounter(counter+1)}}>Counter++</button>
+<h1>Counter: {counter}</h1>
+</>
+  )
 }
 
-export default App;
+export default App

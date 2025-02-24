@@ -1,34 +1,25 @@
-import React, { useState, useMemo } from 'react'
+import React, { useCallback, useState } from 'react'
 import './App.css'
+import Header from './components/header';
 
 
-// 4  UseMemo hook
-// why we need use memo ?
+
+// first we will create one counter
+// and after that we'll add a button that will in increase the counter value
+// Avec affichage dans la console d'un message numéroté de chaque clic 
+// supplementaire sur le bouton d'incrément du compteur
 
 function App() {  
-  const [number, setNumber] = useState(0)
-  const [counter, setCounter] = useState(0)
 
+  const [count, setCount] = useState(0);
 
-function cubeNum(num){
-  console.log('Calculation done!');
-  return Math.pow(num, 3)  
-}
-
-const result = useMemo(()=>cubeNum(number), [number]); // here we are simply calling this Cube number function so let 
-// me remove it (cubeNum(number)) and here we will add useMemo
-//CI DESSUS OU depuis: const result = useMemo(()=>{return cubeNum(number)}, [number]);
-
-
-
-
+  const newFn = useCallback((count)=>{},[count])
 
   return (    
 <>
-<input type="number" value={number} onChange={(e)=>{setNumber(e.target.value)}}/>
-<h1>Cube of the number: {result}</h1>
-<button onClick={()=>{setCounter(counter+1)}}>Counter++</button>
-<h1>Counter: {counter}</h1>
+    <Header newFn={newFn}/>
+    <h1>{count}</h1>
+    <button onClick={()=>setCount(prev=>prev+1)}>Click Here</button>
 </>
   )
 }

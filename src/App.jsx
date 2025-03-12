@@ -1,26 +1,50 @@
 import React, { useState } from 'react'
 import './App.css'
+import { useReducer } from 'react';
 
-// one simple counter that displays the count in this H1 then we have two
-// buttons and we have created this counter State using the use State Hook and the
-// initial value is zero and here we have added Setter function set count that
-// will increase the value by one and this decrease button will decrease the value
-// by one let me show you the web page also you can see here we have this
-// counter if I click on this increase button the counter value is
-// increasing and if I click on decrease button it is decreasing the counter
-// value now we will create the same counter functionality using use reducer
+// Now we will create the same counter functionality using use reducer
 // hook so first we have to import the useReducer from React
+
+// this use reducer accept two arguments the first one is reducer 
+// function and the second one is default state
+// useReducer(reducer, state)
+// useReducer(reducer, {count: 0})
 
 
 function App() {  
 
-  const [count, setCount] = useState(0);
+  const initialState = {count: 0}
+
+  const reducer  = (state, action) =>{
+    switch(action.type) {
+      case `increase` : {
+        return {count: state.count + 1}
+      }
+      case `decrease` : {
+        return {count: state.count - 1}
+      }
+      case `input` : {
+        return {count: action.payload}
+      }
+      default : {
+        return state
+      }
+    }
+
+  }
+  const [state, dispatch] = useReducer(reducer, initialState)
+
 
   return (    
 <>
-<h1>{count}</h1>
-<button onClick={()=>setCount(prev=>prev+1)}>Increase</button>
-<button onClick={()=>setCount(prev=>prev-1)}>Decrease</button>
+<h1>{state.count}</h1>
+<button onClick={()=>dispatch({type: `increase`})}>Increase</button>
+<button onClick={()=>dispatch({type: `decrease`})}>Decrease</button>
+<br/>
+<input value={state.count}
+onChange={(e)=>dispatch({type: `input`,payload:Number(e.target.
+value)})}
+type="number" />
 </>
   )
 }
